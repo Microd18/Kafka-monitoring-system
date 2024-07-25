@@ -1,9 +1,9 @@
 package com.example.consumerservice.config;
 
+import com.example.consumerservice.model.Metric;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.example.consumerservice.model.Metric;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -20,6 +20,14 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import java.util.Map;
 
+/**
+ * Конфигурация Kafka для потребления сообщений типа {@link Metric}.
+ * <p>
+ * Этот класс настраивает компоненты Kafka, такие как {@link ConsumerFactory},
+ * {@link KafkaListenerContainerFactory} и {@link ObjectMapper}, необходимые для
+ * десериализации сообщений из Kafka и их обработки.
+ * </p>
+ */
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
@@ -29,6 +37,13 @@ public class KafkaConfig {
         return JacksonUtils.enhancedObjectMapper();
     }
 
+    /**
+     * Создает {@link ConsumerFactory} для потребления сообщений типа {@link Metric}.
+     *
+     * @param kafkaProperties Свойства Kafka, используемые для конфигурации потребителя.
+     * @param mapper          {@link ObjectMapper} для десериализации сообщений.
+     * @return Экземпляр {@link ConsumerFactory}.
+     */
     @Bean
     public ConsumerFactory<String, Metric> consumerFactory(KafkaProperties kafkaProperties, ObjectMapper mapper) {
         Map<String, Object> properties = kafkaProperties.buildConsumerProperties(null);
@@ -47,6 +62,16 @@ public class KafkaConfig {
         return kafkaConsumerFactory;
     }
 
+    /**
+     * Создает {@link KafkaListenerContainerFactory} для обработки сообщений типа {@link Metric}.
+     * <p>
+     * Настраивает контейнер для прослушивания сообщений в пакетном режиме с использованием
+     * {@link SimpleAsyncTaskExecutor} для выполнения задач.
+     * </p>
+     *
+     * @param consumerFactory {@link ConsumerFactory} для создания потребителей Kafka.
+     * @return Экземпляр {@link KafkaListenerContainerFactory}.
+     */
     @Bean("listenerContainerFactory")
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Metric>>
     listenerContainerFactory(ConsumerFactory<String, Metric> consumerFactory) {

@@ -11,6 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Реализация сервиса для работы с метриками.
+ * <p>
+ * Этот класс реализует интерфейс {@link MetricService} и предоставляет методы для сохранения, поиска и удаления метрик.
+ * </p>
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor

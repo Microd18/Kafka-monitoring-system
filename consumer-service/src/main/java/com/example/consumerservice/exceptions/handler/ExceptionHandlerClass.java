@@ -13,6 +13,6 @@ public class ExceptionHandlerClass {
     @ExceptionHandler(MetricNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String metricNotFoundExceptionHandler(MetricNotFoundException e) {
-        return "Данные не найдены!";
+        return "Metric not found!";
     }
 }

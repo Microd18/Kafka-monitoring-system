@@ -9,6 +9,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Представляет метрику в системе.
+ * <p>
+ * Этот класс описывает метрику, которая хранится в базе данных. Каждая метрика имеет уникальный идентификатор, имя,
+ * данные и описание.
+ * </p>
+ */
 @Entity
 @Table(name = "metrics")
 @Data

@@ -18,6 +18,13 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.Map;
 
+/**
+ * Конфигурация для настройки Kafka.
+ * <p>
+ * Этот класс содержит бины, которые необходимы для создания и настройки Kafka продюсера,
+ * а также для создания топика Kafka.
+ * </p>
+ */
 @Configuration
 public class KafkaConfig {
 
@@ -29,6 +36,17 @@ public class KafkaConfig {
         return JacksonUtils.enhancedObjectMapper();
     }
 
+    /**
+     * Создает и возвращает {@link ProducerFactory} для создания Kafka продюсеров.
+     * <p>
+     * Настраивает сериализацию ключей и значений сообщений для продюсера. Ключи сериализуются
+     * как строки, а значения сериализуются в формате JSON.
+     * </p>
+     *
+     * @param kafkaProperties свойства Kafka, загруженные из конфигурации приложения
+     * @param mapper          {@link ObjectMapper} для сериализации значений
+     * @return {@link ProducerFactory} экземпляр
+     */
     @Bean
     public ProducerFactory<String, Metric> producerFactory(KafkaProperties kafkaProperties, ObjectMapper mapper) {
         Map<String, Object> properties = kafkaProperties.buildProducerProperties(null);
@@ -45,6 +63,14 @@ public class KafkaConfig {
         return new KafkaTemplate<>(producerFactory);
     }
 
+    /**
+     * Создает и возвращает {@link NewTopic} для создания топика Kafka.
+     * <p>
+     * Топик создается с одним разделом и одной репликой. Имя топика задается из конфигурации приложения.
+     * </p>
+     *
+     * @return {@link NewTopic} экземпляр
+     */
     @Bean
     public NewTopic topic() {
         return TopicBuilder.name(topic)

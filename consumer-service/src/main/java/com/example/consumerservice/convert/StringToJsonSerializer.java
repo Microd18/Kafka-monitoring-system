@@ -10,9 +10,24 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Сериализатор для преобразования строки в JSON.
+ * <p>
+ * Этот сериализатор используется для преобразования строки, которая представляет собой JSON,
+ * в объект JSON при сериализации.
+ * </p>
+ */
 @Component
 public class StringToJsonSerializer extends JsonSerializer<String> {
 
+    /**
+     * Сериализует строку в JSON.
+     *
+     * @param s                Строка для сериализации.
+     * @param jsonGenerator    {@link JsonGenerator} для записи JSON.
+     * @param serializerProvider {@link SerializerProvider} для предоставления дополнительных настроек сериализации.
+     * @throws IOException Если возникает ошибка ввода-вывода во время сериализации.
+     */
     @Override
     public void serialize(String s, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         try (JsonParser parser = jsonGenerator.getCodec().getFactory().createParser(s)) {

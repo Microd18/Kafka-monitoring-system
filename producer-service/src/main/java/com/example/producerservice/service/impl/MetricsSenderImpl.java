@@ -19,6 +19,16 @@ public class MetricsSenderImpl implements MetricsSender<String, Metric> {
     private final NewTopic topic;
     private final KafkaTemplate<String, Metric> kafkaTemplate;
 
+    /**
+     * Отправляет метрику в Kafka.
+     *
+     * @param value Метрика, которую необходимо отправить.
+     * @return {@link CompletableFuture} с результатом отправки сообщения.
+     * <p>
+     * Если отправка успешна, в лог будет записано сообщение о публикации метрики. В случае ошибки в лог будет записана информация об ошибке.
+     * </p>
+     * @throws Exception Если возникает ошибка при попытке публикации метрики.
+     */
     @Override
     public CompletableFuture<SendResult<String, Metric>> send(Metric value) {
         try {

@@ -7,12 +7,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Validated
+/**
+ * Контроллер для работы с метриками.
+ * <p>
+ * Обрабатывает HTTP-запросы для получения, сохранения и удаления метрик.
+ * </p>
+ */
 @RestController
 @RequestMapping("/metrics")
 @RequiredArgsConstructor

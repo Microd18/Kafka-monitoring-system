@@ -1,0 +1,114 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:8081
+    description: Generated server url
+paths:
+  /metrics/save:
+    post:
+      tags:
+        - Система управления метриками
+      summary: 'Добавление метрики'
+      operationId: saveMetric
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Metric'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /metrics:
+    get:
+      tags:
+        - Система управления метриками
+      summary: 'Получение всех метрик'
+      operationId: getAllMetrics
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /metrics/{id}:
+    get:
+      tags:
+        - Система управления метриками
+      summary: 'Получение метрики по Id'
+      operationId: getMetric
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+  /metrics/deleteAll:
+    delete:
+      tags:
+        - Система управления метриками
+      summary: 'Удаление всех метрик'
+      operationId: deleteAllMetrics
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                type: string
+components:
+  schemas:
+    Metric:
+      required:
+        - data
+        - name
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        data:
+          type: string
+        description:
+          type: string

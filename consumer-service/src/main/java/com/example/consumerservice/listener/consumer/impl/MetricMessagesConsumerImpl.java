@@ -10,12 +10,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Реализация потребителя сообщений метрик.
+ * <p>
+ * Этот сервис отвечает за обработку сообщений, содержащих метрики, полученных из Kafka.
+ * Он сохраняет каждую метрику в базе данных и логирует информацию о сохраненных метриках.
+ * </p>
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class MetricMessagesConsumerImpl implements MetricMessagesConsumer {
 
     private final MetricService metricService;
+
     @Override
     public void accept(List<Message<Metric>> messages) {
         messages.forEach(message -> {

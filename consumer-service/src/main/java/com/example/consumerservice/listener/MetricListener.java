@@ -10,12 +10,20 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * Слушатель сообщений Kafka для метрик.
+ * <p>
+ * Этот сервис слушает сообщения на заданной теме Kafka и передает их в потребитель сообщений метрик для дальнейшей обработки.
+ * </p>
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class MetricListener {
 
     private final MetricMessagesConsumer metricMessagesConsumer;
+
     @KafkaListener(
             topics = "${consumer-service.kafka}",
             containerFactory = "listenerContainerFactory")
