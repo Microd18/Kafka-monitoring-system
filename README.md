@@ -22,6 +22,10 @@ URL: http://localhost:8081
 - Запустить метод ```main``` в файле ```ProducerServiceApplication.java```
 - Запустить файл ```docker-compose.yml```
 - После этого будут доступны эндпоинты для отправки и обработки метрик.
+
+В каждом сервисе доступен OpenAPI ([produserAPI](producer-service/api-docs.yaml) / [consumerAPI](consumer-service/api-docs.yaml)) с которым можно работать через [Swagger Editor](https://editor.swagger.io/)
+
+
 ### Технологии, используемые в проекте:
 ```
 - Java 17
